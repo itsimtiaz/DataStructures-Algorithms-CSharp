@@ -1,3 +1,5 @@
+using System.Transactions;
+
 namespace DataStructures_Algorithms_CSharp.DataStructures.Linklist;
 
 public class CustomLinkList
@@ -133,7 +135,7 @@ public class CustomLinkList
         Head = previous;
     }
 
-    public int KthNodeFromEnd(int index)
+    public int FindKthNodeFromEnd(int index)
     {
         if (IsEmpty())
         {
@@ -159,6 +161,54 @@ public class CustomLinkList
         }
 
         return kthNode!.Item;
+    }
+
+    public int[] FindMiddle()
+    {
+        if (IsEmpty())
+        {
+            throw new InvalidOperationException("This list is empty.");
+        }
+
+        Node? fast = Head, slow = Head;
+
+        while (fast != null && fast.Next != null)
+        {
+            fast = fast.Next?.Next;
+            slow = slow?.Next;
+        }
+
+        if (fast == Tail)
+        {
+            return new[] { slow!.Item };
+        }
+        else
+        {
+            return new[] { slow!.Item, slow.Next!.Item };
+        }
+    }
+
+    public bool HasLoop()
+    {
+        if (IsEmpty())
+        {
+            throw new InvalidOperationException("This list is empty.");
+        }
+
+        Node? fast = Head, slow = Head;
+
+        while (fast != null)
+        {
+            fast = fast.Next?.Next;
+            slow = slow?.Next;
+
+            if (fast == slow)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     #region Methods
