@@ -17,7 +17,7 @@ public class CustomLinkList
     {
         Node node = new(item);
 
-        if (Head is null)
+        if (IsEmpty())
         {
             Head = Tail = node;
         }
@@ -27,4 +27,21 @@ public class CustomLinkList
             Head = node;
         }
     }
+
+    public void AddLast(int item)
+    {
+        Node node = new(item);
+
+        if (IsEmpty())
+        {
+            Head = Tail = node;
+        }
+        else
+        {
+            Tail!.Next = node;
+            Tail = node;
+        }
+    }
+
+    private bool IsEmpty() => Head is null;
 }
