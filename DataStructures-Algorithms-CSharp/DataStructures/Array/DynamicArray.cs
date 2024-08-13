@@ -1,5 +1,3 @@
-using System;
-
 namespace DataStructures_Algorithms_CSharp.DataStructures.Array;
 
 public class DynamicArray
