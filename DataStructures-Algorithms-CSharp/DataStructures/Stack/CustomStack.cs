@@ -30,9 +30,19 @@ public class CustomStack
         return stack[--offset];
     }
 
-    #region Methods
+    public int Peek()
+    {
+        if (IsEmpty())
+        {
+            throw new InvalidOperationException("This stack is empty.");
+        }
 
-    bool IsEmpty() => offset == 0;
+        return stack[offset - 1];
+    }
+
+    public bool IsEmpty() => offset == 0;
+
+    #region Methods
 
     bool IsFull() => offset == stack.Length;
 
