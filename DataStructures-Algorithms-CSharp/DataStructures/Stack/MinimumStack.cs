@@ -33,4 +33,7 @@ public class MinimumStack
     }
 
     public int Peek() => stack.Peek();
+
+    public int MinimumStackItem() => minimumStack.Peek();
+
 }
