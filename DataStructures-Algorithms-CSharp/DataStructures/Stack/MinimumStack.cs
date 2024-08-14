@@ -19,4 +19,16 @@ public class MinimumStack
             minimumStack.Push(item);
         }
     }
+
+    public int Pop()
+    {
+        var popElement = stack.Pop();
+
+        if (popElement == minimumStack.Peek())
+        {
+            minimumStack.Pop();
+        }
+
+        return popElement;
+    }
 }
