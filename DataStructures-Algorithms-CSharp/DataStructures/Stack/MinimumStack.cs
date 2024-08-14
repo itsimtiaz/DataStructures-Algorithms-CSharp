@@ -31,4 +31,6 @@ public class MinimumStack
 
         return popElement;
     }
+
+    public int Peek() => stack.Peek();
 }
