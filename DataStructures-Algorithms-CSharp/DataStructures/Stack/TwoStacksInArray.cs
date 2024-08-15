@@ -55,6 +55,26 @@ public class TwoStacksInArray
         return stack[stack1Counter++];
     }
 
+    public int PeekFromStack1()
+    {
+        if (IsStack1Empty())
+        {
+            throw new InvalidOperationException("The stack is empty.");
+        }
+
+        return stack[stack1Counter];
+    }
+
+    public int PeekFromStack2()
+    {
+        if (IsStack2Empty())
+        {
+            throw new InvalidOperationException("The stack is empty.");
+        }
+
+        return stack[stack2Counter];
+    }
+
     public bool IsStack1Empty() => stack1Counter == -1;
 
     public bool IsStack2Empty() => stack2Counter == stack.Length;
