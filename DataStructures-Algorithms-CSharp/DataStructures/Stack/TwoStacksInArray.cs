@@ -34,6 +34,31 @@ public class TwoStacksInArray
         stack[--stack2Counter] = item;
     }
 
+    public int PopFromStack1()
+    {
+        if (IsStack1Empty())
+        {
+            throw new InvalidOperationException("The stack is empty.");
+        }
+
+        return stack[stack1Counter--];
+    }
+
+
+    public int PopFromStack2()
+    {
+        if (IsStack2Empty())
+        {
+            throw new InvalidOperationException("The stack is empty.");
+        }
+
+        return stack[stack1Counter++];
+    }
+
+    public bool IsStack1Empty() => stack1Counter == -1;
+
+    public bool IsStack2Empty() => stack2Counter == stack.Length;
+
     #region Methods
 
     private bool IsFull() => stack2Counter - 1 == stack1Counter;
