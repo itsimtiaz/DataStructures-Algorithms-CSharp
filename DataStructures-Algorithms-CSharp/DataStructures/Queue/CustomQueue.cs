@@ -23,6 +23,20 @@ public class CustomQueue
         rear = (rear + 1) % queue.Length;
     }
 
+    public int Dequeue()
+    {
+        if(IsEmpty())
+        {
+            throw new InvalidOperationException("This queue is empty.");
+        }
+
+        var item = queue[front];
+        queue[front] = default;
+        count--;
+        front = (front + 1) % queue.Length;
+        return item;
+    }
+
     #region Methods
 
     private bool IsEmpty() => count == 0;
