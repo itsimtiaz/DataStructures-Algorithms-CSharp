@@ -25,7 +25,7 @@ public class CustomQueue
 
     public int Dequeue()
     {
-        if(IsEmpty())
+        if (IsEmpty())
         {
             throw new InvalidOperationException("This queue is empty.");
         }
@@ -35,6 +35,16 @@ public class CustomQueue
         count--;
         front = (front + 1) % queue.Length;
         return item;
+    }
+
+    public int Peek()
+    {
+        if (IsEmpty())
+        {
+            throw new InvalidOperationException("This queue is empty.");
+        }
+
+        return queue[front];
     }
 
     #region Methods
