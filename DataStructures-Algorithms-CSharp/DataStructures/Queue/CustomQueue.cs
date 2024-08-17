@@ -47,9 +47,11 @@ public class CustomQueue
         return queue[front];
     }
 
-    #region Methods
+    public bool IsEmpty() => count == 0;
 
-    private bool IsEmpty() => count == 0;
+    public int Count() => count;
+
+    #region Methods
 
     private bool IsFull() => count == queue.Length;
 
