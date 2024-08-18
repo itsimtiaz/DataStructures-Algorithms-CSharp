@@ -1,11 +1,10 @@
-using System;
 using DataStructures_Algorithms_CSharp.DataStructures.Stack;
 
 namespace DataStructures_Algorithms_CSharp.DataStructures.Queue;
 
 public class QueueReverser
 {
-    public void Reverse(CustomQueue queue)
+    public void ReverseAll(CustomQueue queue)
     {
         if (queue.IsEmpty())
         {
