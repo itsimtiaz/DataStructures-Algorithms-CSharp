@@ -22,6 +22,29 @@ public class TwoStacksQueue
             throw new InvalidOperationException("The queue is empty.");
         }
 
+        MoveStack1ToStack2();
+
+        return stack2.Pop();
+    }
+
+    public int Peek()
+    {
+        if (IsEmpty())
+        {
+            throw new InvalidOperationException("The queue is empty.");
+        }
+
+        MoveStack1ToStack2();
+
+        return stack2.Peek();
+    }
+
+    public bool IsEmpty() => !stack1.Any() && !stack2.Any();
+
+    #region Methods
+
+    private void MoveStack1ToStack2()
+    {
         if (!stack2.Any())
         {
             while (stack1.Any())
@@ -29,10 +52,8 @@ public class TwoStacksQueue
                 stack2.Push(stack1.Pop());
             }
         }
-
-        return stack2.Pop();
     }
 
-    public bool IsEmpty() => !stack1.Any() && !stack2.Any();
+    #endregion
 
 }
