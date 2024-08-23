@@ -44,6 +44,27 @@ public class CustomHashTable
         _table[tableIndex].AddLast(new TableKeyValuePair(key, value));
     }
 
+    public void Remove(int key)
+    {
+        var tableIndex = GetTableHashCode(key);
+
+        if (_table[tableIndex] is null)
+        {
+            return;
+        }
+
+        foreach (var item in _table[tableIndex])
+        {
+            if (item.Key == key)
+            {
+                _table[tableIndex].Remove(item);
+                return;
+            }
+        }
+
+        throw new InvalidOperationException($"The provided key: {key} doesn't exist in the table");
+    }
+
     #region Methods
 
     private int GetTableHashCode(int key) => key.GetHashCode() % _table.Length;
