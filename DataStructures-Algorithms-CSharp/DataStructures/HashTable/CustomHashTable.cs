@@ -65,6 +65,26 @@ public class CustomHashTable
         throw new InvalidOperationException($"The provided key: {key} doesn't exist in the table");
     }
 
+    public string? Get(int key)
+    {
+        var tableIndex = GetTableHashCode(key);
+
+        if (_table[tableIndex] is null)
+        {
+            return null;
+        }
+
+        foreach (var item in _table[tableIndex])
+        {
+            if (item.Key == key)
+            {
+                return item.Value;
+            }
+        }
+
+        throw new InvalidOperationException($"The provided key: {key} doesn't exist in the table");
+    }
+
     #region Methods
 
     private int GetTableHashCode(int key) => key.GetHashCode() % _table.Length;
