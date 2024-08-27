@@ -13,7 +13,7 @@ public class HashTableWithProbing
         public string Value { get; set; } = null!;
     }
 
-    private TableKeyValuePair[] _table;
+    private TableKeyValuePair?[] _table;
     private int count;
 
     public HashTableWithProbing(int size)
@@ -61,18 +61,18 @@ public class HashTableWithProbing
 
         var tableHashKey = GetTableHashCode(key);
 
-        if (_table[tableHashKey].Key == key)
+        if (_table[tableHashKey]?.Key == key)
         {
-            return _table[tableHashKey].Value;
+            return _table[tableHashKey]!.Value;
         }
 
-        var nextItem = tableHashKey + 1;
+        var nextItem = (tableHashKey + 1) % _table.Length;
 
         while (nextItem != tableHashKey)
         {
-            if (_table[nextItem].Key == key)
+            if (_table[nextItem]?.Key == key)
             {
-                return _table[nextItem].Value;
+                return _table[nextItem]!.Value;
             }
 
             nextItem++;
@@ -83,6 +83,40 @@ public class HashTableWithProbing
         }
 
         throw new InvalidOperationException($"There is no data for the provided key: {key}");
+    }
+
+    public void Remove(int key)
+    {
+        if (IsEmpty())
+        {
+            throw new InvalidOperationException("The table is empty.");
+        }
+
+        var tableHashKey = GetTableHashCode(key);
+
+        if (_table[tableHashKey]!.Key == key)
+        {
+            _table[tableHashKey] = null;
+            return;
+        }
+
+        var nextItem = (tableHashKey + 1) % _table.Length;
+
+        while (nextItem != tableHashKey)
+        {
+            if (_table[nextItem]?.Key == key)
+            {
+                _table[nextItem] = null;
+            }
+            nextItem++;
+
+            if (nextItem == _table.Length)
+            {
+                nextItem = nextItem % _table.Length;
+            }
+        }
+
+        throw new InvalidOperationException($"There is no data found for the provided key: {key}.");
     }
 
     #region Methods
