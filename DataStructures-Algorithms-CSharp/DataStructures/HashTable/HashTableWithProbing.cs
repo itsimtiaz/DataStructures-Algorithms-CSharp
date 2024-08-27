@@ -49,11 +49,46 @@ public class HashTableWithProbing
         }
 
         _table[tableHashCode] = tableKeyValuePair;
+        count++;
+    }
+
+    public string? Get(int key)
+    {
+        if (IsEmpty())
+        {
+            throw new InvalidOperationException("The table is empty.");
+        }
+
+        var tableHashKey = GetTableHashCode(key);
+
+        if (_table[tableHashKey].Key == key)
+        {
+            return _table[tableHashKey].Value;
+        }
+
+        var nextItem = tableHashKey + 1;
+
+        while (nextItem != tableHashKey)
+        {
+            if (_table[nextItem].Key == key)
+            {
+                return _table[nextItem].Value;
+            }
+
+            nextItem++;
+            if (nextItem == _table.Length)
+            {
+                nextItem = nextItem % _table.Length;
+            }
+        }
+
+        throw new InvalidOperationException($"There is no data for the provided key: {key}");
     }
 
     #region Methods
 
     private bool IsFull() => count == _table.Length;
+    private bool IsEmpty() => count == 0;
 
     private int GetTableHashCode(int key) => Math.Abs(key.GetHashCode()) % _table.Length;
 
