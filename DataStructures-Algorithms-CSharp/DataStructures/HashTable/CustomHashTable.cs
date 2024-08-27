@@ -87,7 +87,7 @@ public class CustomHashTable
 
     #region Methods
 
-    private int GetTableHashCode(int key) => key.GetHashCode() % _table.Length;
+    private int GetTableHashCode(int key) => Math.Abs(key.GetHashCode()) % _table.Length;
 
     #endregion
 
