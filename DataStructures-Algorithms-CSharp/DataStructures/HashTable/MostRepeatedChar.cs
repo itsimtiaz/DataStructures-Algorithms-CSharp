@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Reflection.Metadata.Ecma335;
 
 namespace DataStructures_Algorithms_CSharp.DataStructures.HashTable;
@@ -38,6 +39,26 @@ public class MostRepeatedChar
         return mostRepeatedChar;
     }
 
+    public char GetFirstRepeatedChar(string input)
+    {
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(input);
+
+        for (int i = 0; i < input.Length; i++)
+        {
+            var dictionaryKey = input[i];
+
+            if (dictionary.ContainsKey(dictionaryKey))
+            {
+                return dictionaryKey;
+            }
+            else
+            {
+                dictionary.Add(dictionaryKey, 1);
+            }
+        }
+
+        return char.MinValue;
+    }
 
     #region Methods
 
