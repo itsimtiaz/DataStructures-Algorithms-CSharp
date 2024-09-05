@@ -53,4 +53,33 @@ public class CustomBinaryTree
 
     }
 
+    public bool Find(int item)
+    {
+        if (_root is null)
+        {
+            throw new InvalidOperationException("The tree is empty.");
+        }
+
+        var currentNode = _root;
+
+        while (currentNode != null)
+        {
+            if (currentNode.Value == item)
+            {
+                return true;
+            }
+
+            if (item > currentNode.Value)
+            {
+                currentNode = currentNode.Right;
+            }
+            else
+            {
+                currentNode = currentNode.Left;
+            }
+        }
+
+        return false;
+    }
+
 }
