@@ -11,4 +11,16 @@ public class Factorial
 
         return value * (value - 1);
     }
+
+    public int GetFactorialByLoop(int value)
+    {
+        int result = 1;
+
+        for (int i = value; i > 0; i++)
+        {
+            result *= i;
+        }
+
+        return result;
+    }
 }
