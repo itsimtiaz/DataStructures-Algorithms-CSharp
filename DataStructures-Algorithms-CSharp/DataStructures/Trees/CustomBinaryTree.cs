@@ -95,7 +95,7 @@ public class CustomBinaryTree
             return;
         }
 
-        Console.Write("{0}, ", root.Value);
+        Console.Write($"{root.Value}, ");
 
         PreOrderTraverse(root.Left);
         PreOrderTraverse(root.Right);
@@ -116,8 +116,28 @@ public class CustomBinaryTree
 
         InOrderTraverse(root.Left);
 
-        Console.Write("{0}, ", root.Value);
+        Console.Write($"{root.Value}, ");
 
         InOrderTraverse(root.Right);
     }
+
+    public void PostOrderTraverse() => PostOrderTraverse(_root);
+
+    /// <summary>
+    /// Tree will be traversed by Left, Right, Root.
+    /// </summary>
+    /// <param name="root"></param>
+    private void PostOrderTraverse(Node? root)
+    {
+        if (root is null)
+        {
+            return;
+        }
+
+        PostOrderTraverse(root.Left);
+        PostOrderTraverse(root.Right);
+
+        Console.Write($"{root.Value}, ");
+    }
+
 }
