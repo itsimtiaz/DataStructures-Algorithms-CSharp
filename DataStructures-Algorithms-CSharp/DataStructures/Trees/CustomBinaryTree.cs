@@ -82,4 +82,22 @@ public class CustomBinaryTree
         return false;
     }
 
+    public void PreOrderTraverse() => PreOrderTraverse(_root);
+
+    /// <summary>
+    /// Tree will be traversed by Root, Left, Right.
+    /// </summary>
+    /// <param name="root"></param>
+    private void PreOrderTraverse(Node? root)
+    {
+        if (root is null)
+        {
+            return;
+        }
+
+        Console.Write("{0}, ", root.Value);
+
+        PreOrderTraverse(root.Left);
+        PreOrderTraverse(root.Right);
+    }
 }
