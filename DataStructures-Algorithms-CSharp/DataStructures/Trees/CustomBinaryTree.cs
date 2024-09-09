@@ -140,4 +140,18 @@ public class CustomBinaryTree
         Console.Write($"{root.Value}, ");
     }
 
+    public int GetHeight() => GetHeight(_root);
+
+    private int GetHeight(Node? root)
+    {
+        if (root is null)
+        {
+            return -1;
+        }
+        int leftHeight = GetHeight(root.Left);
+        int rightHeight = GetHeight(root.Right);
+
+        return 1 + (leftHeight > rightHeight ? leftHeight : rightHeight);
+    }
+
 }
