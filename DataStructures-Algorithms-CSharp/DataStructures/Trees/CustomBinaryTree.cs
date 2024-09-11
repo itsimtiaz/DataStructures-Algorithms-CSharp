@@ -154,4 +154,15 @@ public class CustomBinaryTree
         return 1 + (leftHeight > rightHeight ? leftHeight : rightHeight);
     }
 
+    public int GetMinimumValue() => GetMinimumValue(_root);
+
+    private int GetMinimumValue(Node? root)
+    {
+        if (root is null)
+        {
+            return int.MaxValue;
+        }
+
+        return Math.Min(GetMinimumValue(root.Left), GetMinimumValue(root.Right));
+    }
 }
