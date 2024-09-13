@@ -165,4 +165,21 @@ public class CustomBinaryTree
 
         return Math.Min(GetMinimumValue(root.Left), GetMinimumValue(root.Right));
     }
+
+    public bool CheckEquality(CustomBinaryTree tree) => CheckEquality(_root, tree._root);
+
+    private bool CheckEquality(Node? root1, Node? root2)
+    {
+        if (root1 is null && root2 is null)
+        {
+            return true;
+        }
+
+        if (root1 is not null && root2 is not null)
+        {
+            return root1.Value == root2.Value && CheckEquality(root1.Left, root2.Left) && CheckEquality(root1.Right, root2.Right);
+        }
+
+        return false;
+    }
 }
