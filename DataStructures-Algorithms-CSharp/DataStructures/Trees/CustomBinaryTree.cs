@@ -182,4 +182,25 @@ public class CustomBinaryTree
 
         return false;
     }
+
+    private bool ValidateBinarySearchTree() => ValidateBinarySearchTree(_root, int.MinValue, int.MaxValue);
+
+    private bool ValidateBinarySearchTree(Node? root, int min, int max)
+    {
+        if (root is null)
+        {
+            return true;
+        }
+
+        return (root.Value >= min && root.Value <= max)
+        && ValidateBinarySearchTree(root.Left, min, root.Value)
+        && ValidateBinarySearchTree(root.Right, root.Value, max);
+    }
+
+    #region Methods
+
+    private bool IsEmpty() => _root is null;
+
+    #endregion
+
 }
