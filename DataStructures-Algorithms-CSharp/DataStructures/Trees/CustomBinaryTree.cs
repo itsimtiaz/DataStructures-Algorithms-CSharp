@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.ObjectModel;
+
 namespace DataStructures_Algorithms_CSharp.DataStructures.Trees;
 
 public class CustomBinaryTree
@@ -140,7 +143,15 @@ public class CustomBinaryTree
         Console.Write($"{root.Value}, ");
     }
 
-    public int GetHeight() => GetHeight(_root);
+    public int GetHeight()
+    {
+        if (IsEmpty())
+        {
+            throw new InvalidOperationException("The tree is empty.");
+        }
+
+        return GetHeight(_root);
+    }
 
     private int GetHeight(Node? root)
     {
@@ -154,7 +165,15 @@ public class CustomBinaryTree
         return 1 + (leftHeight > rightHeight ? leftHeight : rightHeight);
     }
 
-    public int GetMinimumValue() => GetMinimumValue(_root);
+    public int GetMinimumValue()
+    {
+        if (IsEmpty())
+        {
+            throw new InvalidOperationException("The tree is empty.");
+        }
+
+        return GetMinimumValue(_root)
+    }
 
     private int GetMinimumValue(Node? root)
     {
@@ -183,7 +202,15 @@ public class CustomBinaryTree
         return false;
     }
 
-    private bool ValidateBinarySearchTree() => ValidateBinarySearchTree(_root, int.MinValue, int.MaxValue);
+    public bool ValidateBinarySearchTree()
+    {
+        if (IsEmpty())
+        {
+            throw new InvalidOperationException("The tree is empty.");
+        }
+
+        return ValidateBinarySearchTree(_root, int.MinValue, int.MaxValue);
+    }
 
     private bool ValidateBinarySearchTree(Node? root, int min, int max)
     {
@@ -195,6 +222,36 @@ public class CustomBinaryTree
         return (root.Value >= min && root.Value <= max)
         && ValidateBinarySearchTree(root.Left, min, root.Value)
         && ValidateBinarySearchTree(root.Right, root.Value, max);
+    }
+
+    public int[] FindElementsAtKDistance(int kDistance)
+    {
+        if (IsEmpty())
+        {
+            throw new InvalidOperationException("The tree is empty.");
+        }
+
+        ICollection<int> elements = new Collection<int>();
+        FindElementsAtKDistance(_root, kDistance, elements);
+
+        return elements.ToArray();
+    }
+
+    private void FindElementsAtKDistance(Node? root, int kDistance, ICollection<int> elements)
+    {
+        if (root is null)
+        {
+            return;
+        }
+
+        if (kDistance == 0)
+        {
+            elements.Add(root.Value);
+            return;
+        }
+
+        FindElementsAtKDistance(root.Left, kDistance - 1, elements);
+        FindElementsAtKDistance(root.Right, kDistance - 1, elements);
     }
 
     #region Methods
