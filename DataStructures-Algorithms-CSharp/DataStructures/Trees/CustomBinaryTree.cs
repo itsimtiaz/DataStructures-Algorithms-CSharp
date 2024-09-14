@@ -254,6 +254,26 @@ public class CustomBinaryTree
         FindElementsAtKDistance(root.Right, kDistance - 1, elements);
     }
 
+    public void BFSTraverse()
+    {
+        if (IsEmpty())
+        {
+            throw new InvalidOperationException("The tree is empty.");
+        }
+
+        BFSTraverse(_root);
+    }
+
+    private void BFSTraverse(Node? root)
+    {
+        var treeHeight = GetHeight();
+
+        for (int i = 0; i < treeHeight; i++)
+        {
+            FindElementsAtKDistance(i);
+        }
+    }
+
     #region Methods
 
     private bool IsEmpty() => _root is null;
