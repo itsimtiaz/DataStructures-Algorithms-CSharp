@@ -274,6 +274,15 @@ public class CustomBinaryTree
         }
     }
 
+    public int Size() => Size(_root);
+
+    private int Size(Node? root)
+    {
+        if (root is null) return 0;
+
+        return Size(root.Left) + 1 + Size(root.Right);
+    }
+
     #region Methods
 
     private bool IsEmpty() => _root is null;
