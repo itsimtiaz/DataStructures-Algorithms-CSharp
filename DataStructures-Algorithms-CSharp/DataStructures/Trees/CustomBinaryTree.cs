@@ -278,9 +278,28 @@ public class CustomBinaryTree
 
     private int Size(Node? root)
     {
-        if (root is null) return 0;
+        if (root is null)
+        {
+            return 0;
+        }
 
         return Size(root.Left) + 1 + Size(root.Right);
+    }
+
+    public int LeavesCount() => LeavesCount(_root);
+
+    private int LeavesCount(Node? root)
+    {
+        if (root is null)
+        {
+            return 0;
+        }
+
+        if (root.Left is null && root.Right is null)
+        {
+            return 1;
+        }
+        return LeavesCount(root.Left) + LeavesCount(root.Right);
     }
 
     #region Methods
