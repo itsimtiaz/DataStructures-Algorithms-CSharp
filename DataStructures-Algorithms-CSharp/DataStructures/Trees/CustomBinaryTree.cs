@@ -182,7 +182,7 @@ public class CustomBinaryTree
             return int.MaxValue;
         }
 
-        return Math.Min(GetMinimumValue(root.Left), GetMinimumValue(root.Right));
+        return Math.Min(Math.Min(GetMinimumValue(root.Left), GetMinimumValue(root.Right)), root.Value);
     }
 
     public bool CheckEquality(CustomBinaryTree tree) => CheckEquality(_root, tree._root);
@@ -300,6 +300,32 @@ public class CustomBinaryTree
             return 1;
         }
         return LeavesCount(root.Left) + LeavesCount(root.Right);
+    }
+
+    public bool AreSiblings(int node1, int node2)
+    {
+        if (IsEmpty())
+        {
+            throw new InvalidOperationException("The tree is empty.");
+        }
+
+        return AreSiblings(_root, node1, node2);
+    }
+
+    private bool AreSiblings(Node? root, int node1, int node2)
+    {
+        if (root is null)
+        {
+            return false;
+        }
+
+        if (root.Left != null && root.Right != null)
+        {
+            return (root.Left.Value == node1 && root.Right.Value == node2) ||
+            (root.Left.Value == node2 && root.Right.Value == node1) || AreSiblings(root.Left, node1, node2) || AreSiblings(root.Right, node1, node2);
+        }
+
+        return false;
     }
 
     #region Methods
