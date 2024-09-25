@@ -328,6 +328,39 @@ public class CustomBinaryTree
         return false;
     }
 
+    public IEnumerable<int> GetAncestor(int value)
+    {
+        if (IsEmpty())
+        {
+            throw new InvalidOperationException("The tree is empty.");
+        }
+
+        ICollection<int> ancestors = new Collection<int>();
+        GetAncestors(_root, value, ancestors);
+        return ancestors;
+    }
+
+    private bool GetAncestors(Node? root, int value, ICollection<int> ancestors)
+    {
+        if (root is null)
+        {
+            return false;
+        }
+
+        if (root.Value == value)
+        {
+            return true;
+        }
+
+        if (GetAncestors(root.Left, value, ancestors) || GetAncestors(root.Right, value, ancestors))
+        {
+            ancestors.Add(root.Value);
+            return true;
+        }
+
+        return false;
+    }
+
     #region Methods
 
     private bool IsEmpty() => _root is null;
