@@ -172,7 +172,7 @@ public class CustomBinaryTree
             throw new InvalidOperationException("The tree is empty.");
         }
 
-        return GetMinimumValue(_root)
+        return GetMinimumValue(_root);
     }
 
     private int GetMinimumValue(Node? root)
