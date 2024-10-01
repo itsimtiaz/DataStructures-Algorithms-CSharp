@@ -43,12 +43,21 @@ public class AvlTree
 
         if (IsLeftHeavy(root))
         {
-            Console.WriteLine("The tree is left heavy.");
-        }
+            if (GetBalanceFactor(root.Left!) < 0)
+            {
+                RotateLeft(root.Left!);
+            }
 
-        if (IsRightHeavy(root))
+            return RotateRight(root);
+        }
+        else if (IsRightHeavy(root))
         {
-            Console.WriteLine("The tree is right heavy.");
+            if (GetBalanceFactor(root.Right!) > 0)
+            {
+                RotateRight(root.Right!);
+            }
+
+            return RotateLeft(root);
         }
 
         return root;
@@ -56,12 +65,31 @@ public class AvlTree
 
     #region Methods
 
-    private int GetHeight(Node? node) => 1 + Math.Max(node?.Left?.Height ?? -1, node?.Right?.Height ?? -1);
+    private int GetNodeHeight(Node? node) => node?.Height ?? -1;
 
-    private int GetBalanceFactor(Node node) => GetHeight(node.Left) - GetHeight(node.Right);
+    private int GetHeight(Node? node) => 1 + Math.Max(GetNodeHeight(node?.Left), GetNodeHeight(node?.Right));
 
-    private bool IsLeftHeavy(Node node) => GetBalanceFactor(node) > 0;
-    private bool IsRightHeavy(Node node) => GetBalanceFactor(node) < 0;
+    private int GetBalanceFactor(Node node) => GetNodeHeight(node.Left) - GetNodeHeight(node.Right);
+
+    private bool IsLeftHeavy(Node node) => GetBalanceFactor(node) > 1;
+
+    private bool IsRightHeavy(Node node) => GetBalanceFactor(node) < -1;
+
+    private Node RotateLeft(Node node)
+    {
+        var newNode = node.Right;
+        node.Right = newNode!.Left;
+        newNode!.Left = node;
+        return newNode;
+    }
+
+    private Node RotateRight(Node node)
+    {
+        var newNode = node.Left;
+        node.Left = newNode!.Right;
+        newNode!.Right = node;
+        return newNode;
+    }
 
     #endregion
 }
