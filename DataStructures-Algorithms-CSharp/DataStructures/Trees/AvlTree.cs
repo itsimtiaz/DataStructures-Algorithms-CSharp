@@ -86,6 +86,25 @@ public class AvlTree
         return GetTreeSize(root) == Math.Pow(2, GetTreeHeight(_root) + 1) - 1;
     }
 
+    public bool IsPerfect() => IsPerfect(_root, GetHeight(_root));
+
+    private bool IsPerfect(Node? root, int height, int level = 0)
+    {
+        if (root is null) return true;
+
+        if (root.Left == null && root.Right == null)
+        {
+            return height == level + 1;
+        }
+
+        if (root.Left == null || root.Right == null)
+        {
+            return false;
+        }
+
+        return IsPerfect(root.Left, height, level + 1) && IsPerfect(root.Right, height, level + 1);
+    }
+
     #region Methods
 
     private int GetNodeHeight(Node? node) => node?.Height ?? -1;
