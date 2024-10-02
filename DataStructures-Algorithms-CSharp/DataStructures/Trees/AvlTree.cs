@@ -63,6 +63,18 @@ public class AvlTree
         return root;
     }
 
+    public bool IsBalance() => IsBalance(_root);
+
+    private bool IsBalance(Node? root)
+    {
+        if (root is null)
+        {
+            return true;
+        }
+
+        return root.Height >= -1 && root.Height <= 1 && IsBalance(root.Left) && IsBalance(root.Right);
+    }
+
     #region Methods
 
     private int GetNodeHeight(Node? node) => node?.Height ?? -1;
