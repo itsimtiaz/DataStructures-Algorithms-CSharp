@@ -75,6 +75,17 @@ public class AvlTree
         return root.Height >= -1 && root.Height <= 1 && IsBalance(root.Left) && IsBalance(root.Right);
     }
 
+    public bool IsPerfectWithFormula()
+    {
+        var treeHeight = GetTreeHeight(_root);
+        return IsPerfectWithFormula(_root, treeHeight);
+    }
+
+    private bool IsPerfectWithFormula(Node? root, int treeHeight)
+    {
+        return GetTreeSize(root) == Math.Pow(2, GetTreeHeight(_root) + 1) - 1;
+    }
+
     #region Methods
 
     private int GetNodeHeight(Node? node) => node?.Height ?? -1;
@@ -101,6 +112,26 @@ public class AvlTree
         node.Left = newNode!.Right;
         newNode!.Right = node;
         return newNode;
+    }
+
+    private int GetTreeHeight(Node? node)
+    {
+        if (node is null)
+        {
+            return -1;
+        }
+
+        return 1 + Math.Max(GetTreeHeight(node.Left), GetTreeHeight(node.Right));
+    }
+
+    private int GetTreeSize(Node? node)
+    {
+        if (node is null)
+        {
+            return 0;
+        }
+
+        return GetTreeSize(node.Left) + 1 + GetTreeSize(node.Right);
     }
 
     #endregion
