@@ -46,7 +46,16 @@ public class CustomHeap
 
         while (index <= count && !IsValidParent(index))
         {
-            var largestChild = _heap[LeftIndex(index)] > _heap[RightIndex(index)] ? LeftIndex(index) : RightIndex(index);
+            int largestChild = 0;
+
+            if (!HasRightChild(index))
+            {
+                largestChild = LeftIndex(index);
+            }
+            else
+            {
+                largestChild = _heap[LeftIndex(index)] > _heap[RightIndex(index)] ? LeftIndex(index) : RightIndex(index);
+            }
 
             Swap(index, largestChild);
             index = largestChild;
@@ -90,6 +99,11 @@ public class CustomHeap
 
         return isValid;
     }
+
+    private bool HasLeftChild(int index) => LeftIndex(index) <= count;
+
+    private bool HasRightChild(int index) => RightIndex(index) <= count;
+
     #endregion
 
 }
