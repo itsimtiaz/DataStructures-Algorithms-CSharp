@@ -33,6 +33,28 @@ public class CustomHeap
         }
     }
 
+    public int Remove()
+    {
+        if (IsEmpty())
+        {
+            throw new InvalidOperationException("The heap is empty.");
+        }
+
+        var index = 0;
+        var root = _heap[index];
+        _heap[index] = _heap[--count];
+
+        while (index <= count && !IsValidParent(index))
+        {
+            var largestChild = _heap[LeftIndex(index)] > _heap[RightIndex(index)] ? LeftIndex(index) : RightIndex(index);
+
+            Swap(index, largestChild);
+            index = largestChild;
+        }
+
+        return root;
+    }
+
     #region Methods
 
     private bool IsFull() => count == _heap.Length;
@@ -48,6 +70,26 @@ public class CustomHeap
         _heap[index2] = temp;
     }
 
+    private int LeftIndex(int index) => 2 * index + 1;
+
+    private int RightIndex(int index) => 2 * index + 2;
+
+    private bool IsValidParent(int index)
+    {
+        if (index == count)
+        {
+            return true;
+        }
+
+        var isValid = _heap[index] > _heap[LeftIndex(index)];
+
+        if (RightIndex(index) <= count)
+        {
+            isValid &= _heap[index] > _heap[RightIndex(index)];
+        }
+
+        return isValid;
+    }
     #endregion
 
 }
