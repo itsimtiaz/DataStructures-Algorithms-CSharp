@@ -75,6 +75,38 @@ public class CustomHeap
         return data;
     }
 
+    public void Heapify(int[] data)
+    {
+        if (data.Length == 0)
+        {
+            throw new InvalidOperationException();
+        }
+
+        for (int i = 0; i < data.Length; i++)
+        {
+            Heapify(i, data);
+        }
+    }
+
+    private void Heapify(int index, int[] data)
+    {
+        if (index >= data.Length)
+        {
+            return;
+        }
+
+        var largestChild = GetLargestChildIndex(index);
+
+        if (largestChild >= data.Length || data[index] > data[largestChild])
+        {
+            return;
+        }
+
+        SwapValues(index, largestChild, data);
+
+        Heapify(largestChild, data);
+    }
+
     #region Methods
 
     private bool IsFull() => _offset == _heap.Length;
@@ -87,6 +119,15 @@ public class CustomHeap
         _heap[index1] = _heap[index2];
         _heap[index2] = swapValue;
     }
+
+
+    private void SwapValues(int index1, int index2, int[] data)
+    {
+        var swapValue = data[index1];
+        data[index1] = data[index2];
+        data[index2] = swapValue;
+    }
+
 
     private int GetParentIndex(int index) => (index - 1) / 2;
 
