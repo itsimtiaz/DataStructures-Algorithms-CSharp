@@ -29,9 +29,32 @@ public class CustomHeap
             index = parentIndex;
             parentIndex = GetParentIndex(index);
         }
-
     }
 
+    public int Remove()
+    {
+        if (IsEmpty())
+        {
+            throw new InvalidOperationException();
+        }
+
+        var index = 0;
+
+        var itemToBeRemoved = _heap[index];
+
+        _heap[index] = _heap[--_offset];
+
+        var largestChild = GetLargestChildIndex(index);
+
+        while (largestChild != index && _heap[index] < _heap[largestChild])
+        {
+            SwapValues(index, largestChild);
+            index = largestChild;
+            largestChild = GetLargestChildIndex(index);
+        }
+
+        return itemToBeRemoved;
+    }
 
     #region Methods
 
@@ -46,7 +69,29 @@ public class CustomHeap
         _heap[index2] = swapValue;
     }
 
-    private int GetParentIndex(int index) => (index / 2) - 1;
+    private int GetParentIndex(int index) => (index - 1) / 2;
+
+    private int GetLeftIndex(int index) => (index * 2) + 1;
+
+    private int GetRightIndex(int index) => index * 2 + 2;
+
+    private int GetLargestChildIndex(int index)
+    {
+        var leftIndex = GetLeftIndex(index);
+        var rightIndex = GetRightIndex(index);
+
+        if (leftIndex >= _offset)
+        {
+            return index;
+        }
+
+        if (rightIndex >= _offset)
+        {
+            return leftIndex;
+        }
+
+        return _heap[leftIndex] > _heap[rightIndex] ? leftIndex : rightIndex;
+    }
 
     #endregion
 
