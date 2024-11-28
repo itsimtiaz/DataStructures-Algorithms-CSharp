@@ -64,6 +64,17 @@ public class CustomHeap
         }
     }
 
+    public IEnumerable<int> GetDataByAscendingOrder()
+    {
+        int[] data = new int[_offset];
+        for (int i = _offset - 1; i >= 0; i--)
+        {
+            data[i] = Remove();
+        }
+
+        return data;
+    }
+
     #region Methods
 
     private bool IsFull() => _offset == _heap.Length;
