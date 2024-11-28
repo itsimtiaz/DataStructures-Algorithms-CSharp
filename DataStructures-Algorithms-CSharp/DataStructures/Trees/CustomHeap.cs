@@ -56,6 +56,14 @@ public class CustomHeap
         return itemToBeRemoved;
     }
 
+    public IEnumerable<int> GetDataByDescendingOrder()
+    {
+        for (int i = 0; i < _offset; i++)
+        {
+            yield return Remove();
+        }
+    }
+
     #region Methods
 
     private bool IsFull() => _offset == _heap.Length;
