@@ -122,6 +122,33 @@ public class CustomHeap
         return GetFirstItem();
     }
 
+    public bool IsMaxHeap(int[] data)
+    {
+        if (data.Length == 0)
+        {
+            throw new ArgumentException();
+        }
+
+        return IsMaxHeap(data: data, index: 0);
+    }
+
+    private bool IsMaxHeap(int[] data, int index)
+    {
+        bool isValid = true;
+        if (index == data.Length)
+            return isValid;
+
+        var leftChild = GetLeftIndex(index);
+
+        isValid &= leftChild < data.Length && data[leftChild] <= data[index];
+
+        var rightChild = GetRightIndex(index);
+
+        isValid &= rightChild < data.Length && data[rightChild] <= data[index];
+
+        return isValid && (leftChild >= data.Length || IsMaxHeap(data, leftChild)) && (rightChild >= data.Length || IsMaxHeap(data, rightChild));
+    }
+
     #region Methods
 
     private bool IsFull() => _offset == _heap.Length;
@@ -135,14 +162,12 @@ public class CustomHeap
         _heap[index2] = swapValue;
     }
 
-
     private void SwapValues(int index1, int index2, int[] data)
     {
         var swapValue = data[index1];
         data[index1] = data[index2];
         data[index2] = swapValue;
     }
-
 
     private int GetParentIndex(int index) => (index - 1) / 2;
 
