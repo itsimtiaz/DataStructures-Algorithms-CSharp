@@ -107,6 +107,21 @@ public class CustomHeap
         Heapify(largestChild, data);
     }
 
+    public int GetKthLargestItem(int kth)
+    {
+        if (kth < 0 || kth >= _offset)
+        {
+            throw new ArgumentOutOfRangeException();
+        }
+
+        for (int i = 0; i < kth; i++)
+        {
+            Remove();
+        }
+
+        return GetFirstItem();
+    }
+
     #region Methods
 
     private bool IsFull() => _offset == _heap.Length;
@@ -152,6 +167,8 @@ public class CustomHeap
 
         return _heap[leftIndex] > _heap[rightIndex] ? leftIndex : rightIndex;
     }
+
+    private int GetFirstItem() => _heap[0];
 
     #endregion
 
