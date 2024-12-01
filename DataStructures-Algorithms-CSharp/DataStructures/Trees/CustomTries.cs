@@ -1,3 +1,5 @@
+
+
 namespace DataStructures_Algorithms_CSharp.DataStructures.Trees;
 
 public class CustomTries
@@ -16,6 +18,12 @@ public class CustomTries
         public Node Get(char item) => Children[item];
 
         public void MarkWordComplete() => IsEndOfWorld = true;
+
+        public IEnumerable<Node> GetChildren() => Children.Values;
+
+        public void Remove(char item) => Children.Remove(item);
+
+        public bool IsEmpty() => !Children.Any();
 
     }
 
@@ -55,4 +63,46 @@ public class CustomTries
         return current.IsEndOfWorld;
     }
 
+    public void Traverse()
+    {
+        Traverse(_root);
+    }
+
+    private void Traverse(Node root)
+    {
+        // We can only do it by Pre-Order or Post-Order.
+        Console.WriteLine(root.Item);
+
+        foreach (var node in root.GetChildren())
+        {
+            Traverse(node);
+        }
+    }
+
+    public void Remove(string input)
+    {
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(input);
+
+        Remove(_root, input, 0);
+    }
+
+    private void Remove(Node? root, string input, int index)
+    {
+        if (root is null) return;
+
+        if (index == input.Length)
+        {
+            root.IsEndOfWorld = false;
+            return;
+        }
+
+        var currentCh = input[index];
+        var node = root.Get(currentCh);
+        Remove(node, input, index + 1);
+
+        if (!root.IsEndOfWorld && root.IsEmpty())
+        {
+            root.Remove(currentCh);
+        }
+    }
 }
