@@ -1,5 +1,7 @@
 
 
+using System.Collections.ObjectModel;
+
 namespace DataStructures_Algorithms_CSharp.DataStructures.Trees;
 
 public class CustomTries
@@ -103,6 +105,38 @@ public class CustomTries
         if (!root.IsEndOfWorld && root.IsEmpty())
         {
             root.Remove(currentCh);
+        }
+    }
+
+    public IEnumerable<string> AutoComplete(string input)
+    {
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(input);
+
+        var current = _root;
+        foreach (var item in input)
+        {
+            current = current?.Get(item);
+        }
+
+        ICollection<string> words = new Collection<string>();
+
+        AutoComplete(current, words, input);
+
+        return words;
+    }
+
+    private void AutoComplete(Node? current, ICollection<string> words, string input)
+    {
+        if (current is null) return;
+
+        if (current.IsEndOfWorld)
+        {
+            words.Add(input);
+        }
+
+        foreach (var node in current.GetChildren())
+        {
+            AutoComplete(node, words, input + node.Item);
         }
     }
 }
