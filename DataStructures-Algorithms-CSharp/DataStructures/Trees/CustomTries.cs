@@ -139,4 +139,27 @@ public class CustomTries
             AutoComplete(node, words, input + node.Item);
         }
     }
+
+    public bool ContainsRecursive(string input)
+    {
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(input);
+
+        return ContainsRecursive(_root, input, 0);
+    }
+
+    private bool ContainsRecursive(Node? node, string input, int index)
+    {
+        if (node is null)
+            return false;
+
+        if (index == input.Length)
+            return node.IsEndOfWorld;
+
+        var currentChar = input[index];
+
+        var currentNode = node.Get(currentChar);
+
+        return ContainsRecursive(currentNode, input, index + 1);
+    }
+
 }
