@@ -162,4 +162,26 @@ public class CustomTries
         return ContainsRecursive(currentNode, input, index + 1);
     }
 
+    public int CountWords() => CountWords(_root);
+
+    private int CountWords(Node? node)
+    {
+        if (node is null)
+        {
+            return 0;
+        }
+
+        if (node.IsEndOfWorld)
+        {
+            return 1;
+        }
+
+        int result = 0;
+        foreach (var child in node.GetChildren())
+        {
+            result += CountWords(child);
+        }
+
+        return result;
+    }
 }
