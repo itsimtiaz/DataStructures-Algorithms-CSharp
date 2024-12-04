@@ -1,6 +1,7 @@
 
 
 using System.Collections.ObjectModel;
+using System.Text;
 
 namespace DataStructures_Algorithms_CSharp.DataStructures.Trees;
 
@@ -26,6 +27,8 @@ public class CustomTries
         public void Remove(char item) => Children.Remove(item);
 
         public bool IsEmpty() => !Children.Any();
+
+        public int ChildrenCount() => Children.Count();
 
     }
 
@@ -184,4 +187,34 @@ public class CustomTries
 
         return result;
     }
+
+    public string GetLongestPrefix(IEnumerable<string> words)
+    {
+        int shortestWord = int.MaxValue;
+
+        var tri = new CustomTries();
+
+        foreach (var word in words)
+        {
+            tri.Add(word);
+
+            shortestWord = shortestWord > word.Length ? word.Length : shortestWord;
+        }
+
+        var longestPrefix = new StringBuilder(shortestWord);
+
+        var current = tri._root;
+
+        while (current.ChildrenCount() == 1)
+        {
+            current = current.GetChildren().FirstOrDefault();
+
+            if (current is null) break;
+
+            longestPrefix.Append(current.Item);
+        }
+
+        return longestPrefix.ToString();
+    }
+
 }
