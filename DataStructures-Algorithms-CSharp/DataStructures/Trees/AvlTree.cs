@@ -45,7 +45,7 @@ public class AvlTree
         {
             if (GetBalanceFactor(root.Left!) < 0)
             {
-                RotateLeft(root.Left!);
+               root.Left = RotateLeft(root.Left!);
             }
 
             return RotateRight(root);
@@ -54,7 +54,7 @@ public class AvlTree
         {
             if (GetBalanceFactor(root.Right!) > 0)
             {
-                RotateRight(root.Right!);
+               root.Right = RotateRight(root.Right!);
             }
 
             return RotateLeft(root);
