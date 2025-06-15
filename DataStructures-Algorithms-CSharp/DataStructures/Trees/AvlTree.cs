@@ -122,6 +122,9 @@ public class AvlTree
         var newNode = node.Right;
         node.Right = newNode!.Left;
         newNode!.Left = node;
+
+        node.Height = GetHeight(node);
+        newNode.Height = GetHeight(newNode);
         return newNode;
     }
 
@@ -130,6 +133,9 @@ public class AvlTree
         var newNode = node.Left;
         node.Left = newNode!.Right;
         newNode!.Right = node;
+
+        node.Height = GetHeight(node);
+        newNode.Height = GetHeight(newNode);
         return newNode;
     }
 
