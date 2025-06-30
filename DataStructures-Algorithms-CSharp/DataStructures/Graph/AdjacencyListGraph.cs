@@ -168,4 +168,49 @@ public class AdjacencyListGraph
 
         stack.Push(node);
     }
+
+    public bool HasCycle()
+    {
+        HashSet<Node> all = new(_nodes.Values);
+        HashSet<Node> visiting = new();
+        HashSet<Node> visited = new();
+
+        while (all.Any())
+        {
+            var popItem = all.FirstOrDefault()!;
+            if (visited.Contains(popItem))
+                continue;
+
+            if (HasCycle(popItem, all, visiting, visited))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private bool HasCycle(Node node, HashSet<Node> all, HashSet<Node> visiting, HashSet<Node> visited)
+    {
+        all.Remove(node);
+        visiting.Add(node);
+
+        foreach (var edge in _edges[node])
+        {
+            if (visited.Contains(edge))
+                continue;
+
+            if (visiting.Contains(edge))
+                return true;
+
+            if (HasCycle(edge, all, visiting, visited))
+                return true;
+        }
+
+        visiting.Remove(node);
+        visited.Add(node);
+
+        return false;
+    }
+
 }
