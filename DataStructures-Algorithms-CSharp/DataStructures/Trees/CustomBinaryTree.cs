@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.ObjectModel;
 
 namespace DataStructures_Algorithms_CSharp.DataStructures.Trees;

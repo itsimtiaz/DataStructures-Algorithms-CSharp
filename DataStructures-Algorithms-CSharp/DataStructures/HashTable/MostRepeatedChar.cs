@@ -1,6 +1,3 @@
-using System.ComponentModel;
-using System.Reflection.Metadata.Ecma335;
-
 namespace DataStructures_Algorithms_CSharp.DataStructures.HashTable;
 
 public class MostRepeatedChar

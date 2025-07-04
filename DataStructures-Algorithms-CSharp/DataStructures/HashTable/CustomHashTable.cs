@@ -1,5 +1,3 @@
-using System;
-
 namespace DataStructures_Algorithms_CSharp.DataStructures.HashTable;
 
 public class CustomHashTable
