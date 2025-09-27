@@ -134,19 +134,19 @@ public class CustomHeap
 
     private bool IsMaxHeap(int[] data, int index)
     {
-        bool isValid = true;
-        if (index == data.Length)
-            return isValid;
+        if (index >= data.Length)
+            return true;
 
         var leftChild = GetLeftIndex(index);
-
-        isValid &= leftChild < data.Length && data[leftChild] <= data[index];
+        if (leftChild < data.Length && data[leftChild] > data[index])
+            return false;
 
         var rightChild = GetRightIndex(index);
 
-        isValid &= rightChild < data.Length && data[rightChild] <= data[index];
+        if(rightChild < data.Length && data[rightChild] > data[index])
+            return false;
 
-        return isValid && (leftChild >= data.Length || IsMaxHeap(data, leftChild)) && (rightChild >= data.Length || IsMaxHeap(data, rightChild));
+        return IsMaxHeap(data, leftChild) && IsMaxHeap(data, rightChild);
     }
 
     #region Methods
