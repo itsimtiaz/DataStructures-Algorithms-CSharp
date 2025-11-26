@@ -3,7 +3,7 @@ namespace DataStructures_Algorithms_CSharp.DataStructures.Queue;
 public class CustomPriorityQueue
 {
     private int[] queue;
-    private int count, front;
+    private int count;
 
     public CustomPriorityQueue(int initialSize)
     {
@@ -18,7 +18,7 @@ public class CustomPriorityQueue
         }
 
         int j = count - 1;
-
+        // For min-priority queue, just change the order
         while (queue[j] > item && j >= 0)
         {
             queue[j + 1] = queue[j];
@@ -35,11 +35,9 @@ public class CustomPriorityQueue
         {
             throw new InvalidOperationException("The queue is empty.");
         }
+        var item = queue[--offset];
+        queue[offset] = default;
 
-        var item = queue[front];
-        queue[front++] = default;
-        front = (front + 1) % queue.Length;
-        count--;
         return item;
     }
 
