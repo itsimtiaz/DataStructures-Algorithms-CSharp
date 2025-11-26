@@ -35,8 +35,8 @@ public class CustomPriorityQueue
         {
             throw new InvalidOperationException("The queue is empty.");
         }
-        var item = queue[--offset];
-        queue[offset] = default;
+        var item = queue[--count];
+        queue[count] = default;
 
         return item;
     }
