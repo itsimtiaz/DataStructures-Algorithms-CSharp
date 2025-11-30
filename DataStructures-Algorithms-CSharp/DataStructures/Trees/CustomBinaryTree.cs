@@ -260,16 +260,13 @@ public class CustomBinaryTree
             throw new InvalidOperationException("The tree is empty.");
         }
 
-        BFSTraverse(_root);
-    }
+       var treeHeight = GetHeight();
 
-    private void BFSTraverse(Node? root)
-    {
-        var treeHeight = GetHeight();
+        Dictionary<int, IEnumerable<int>> traverse = new();
 
         for (int i = 0; i < treeHeight; i++)
         {
-            FindElementsAtKDistance(i);
+            traverse.Add(i, FindElementsAtKDistance(i));
         }
     }
 
