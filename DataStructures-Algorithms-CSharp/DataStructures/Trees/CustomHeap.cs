@@ -177,20 +177,19 @@ public class CustomHeap
 
     private int GetLargestChildIndex(int index)
     {
-        var leftIndex = GetLeftIndex(index);
-        var rightIndex = GetRightIndex(index);
+        var largestChild = index;
 
-        if (leftIndex >= _offset)
-        {
-            return index;
-        }
+        var leftChild = GetLeftChild(index);
 
-        if (rightIndex >= _offset)
-        {
-            return leftIndex;
-        }
+        if (leftChild < offset && _heap[leftChild] > _heap[largestChild])
+            largestChild = leftChild;
 
-        return _heap[leftIndex] > _heap[rightIndex] ? leftIndex : rightIndex;
+        var rightChild = GetRightChild(index);
+
+        if (rightChild < offset && _heap[rightChild] > _heap[largestChild])
+            largestChild = rightChild;
+
+        return largestChild;
     }
 
     private int GetFirstItem() => _heap[0];
