@@ -152,17 +152,15 @@ public class CustomTries
 
     private bool ContainsRecursive(Node? node, string input, int index)
     {
-        if (node is null)
-            return false;
+       if (!root.ChildExists(input[index]))
+           return false;
+        
+        var node = root.Get(input[index]);
 
         if (index == input.Length)
-            return node.IsEndOfWorld;
+            return node.IsEndOfWord;
 
-        var currentChar = input[index];
-
-        var currentNode = node.Get(currentChar);
-
-        return ContainsRecursive(currentNode, input, index + 1);
+        return ContainsRecursive(node, input, index + 1);
     }
 
     public int CountWords() => CountWords(_root);
