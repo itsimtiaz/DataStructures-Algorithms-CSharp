@@ -91,24 +91,28 @@ public class CustomTries
         Remove(_root, input, 0);
     }
 
-    private void Remove(Node? root, string input, int index)
+    private bool Remove(Node? root, string input, int index)
     {
         if (root is null) return;
 
         if (index == input.Length)
         {
-            root.IsEndOfWord = false;
-            return;
+            if (root.IsEndOfWord)
+                root.IsEndOfWord = false;
+            return root.Children.Count() == 0;
         }
 
-        var currentCh = input[index];
-        var node = root.Get(currentCh);
-        Remove(node, input, index + 1);
+        if (!root.Exists(input[index]))
+            return false;
 
-        if (!root.IsEndOfWord && root.IsEmpty())
-        {
-            root.Remove(currentCh);
-        }
+        var node = root.Get(input[index]);
+
+        var shouldRemove = Remove(node, input, index + 1);
+
+        if (shouldRemove)
+            root.Remove(input[index]);
+
+        return !root.IsEndOfWord && root.IsEmpty();
     }
 
     public IEnumerable<string> AutoComplete(string input)
