@@ -10,7 +10,7 @@ public class CustomTries
     class Node(char ch)
     {
         public char Item { get; set; } = ch;
-        public bool IsEndOfWorld { get; set; }
+        public bool IsEndOfWord { get; set; }
 
         public IDictionary<char, Node> Children { get; set; } = new Dictionary<char, Node>();
 
@@ -20,7 +20,7 @@ public class CustomTries
 
         public Node Get(char item) => Children[item];
 
-        public void MarkWordComplete() => IsEndOfWorld = true;
+        public void MarkWordComplete() => IsEndOfWord = true;
 
         public IEnumerable<Node> GetChildren() => Children.Values;
 
@@ -65,7 +65,7 @@ public class CustomTries
             current = current.Get(item);
         }
 
-        return current.IsEndOfWorld;
+        return current.IsEndOfWord;
     }
 
     public void Traverse()
@@ -97,7 +97,7 @@ public class CustomTries
 
         if (index == input.Length)
         {
-            root.IsEndOfWorld = false;
+            root.IsEndOfWord = false;
             return;
         }
 
@@ -105,7 +105,7 @@ public class CustomTries
         var node = root.Get(currentCh);
         Remove(node, input, index + 1);
 
-        if (!root.IsEndOfWorld && root.IsEmpty())
+        if (!root.IsEndOfWord && root.IsEmpty())
         {
             root.Remove(currentCh);
         }
@@ -132,7 +132,7 @@ public class CustomTries
     {
         if (current is null) return;
 
-        if (current.IsEndOfWorld)
+        if (current.IsEndOfWord)
         {
             words.Add(input);
         }
@@ -152,7 +152,7 @@ public class CustomTries
 
     private bool ContainsRecursive(Node? node, string input, int index)
     {
-       if (!root.ChildExists(input[index]))
+       if (!root.Exists(input[index]))
            return false;
         
         var node = root.Get(input[index]);
@@ -172,7 +172,7 @@ public class CustomTries
             return 0;
         }
 
-        if (node.IsEndOfWorld)
+        if (node.IsEndOfWord)
         {
             return 1;
         }
