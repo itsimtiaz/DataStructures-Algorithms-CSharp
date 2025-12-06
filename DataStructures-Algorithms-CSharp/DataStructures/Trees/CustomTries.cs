@@ -119,14 +119,17 @@ public class CustomTries
     {
         ArgumentNullException.ThrowIfNullOrWhiteSpace(input);
 
+        ICollection<string> words = new Collection<string>();
+        
         var current = _root;
         foreach (var item in input)
         {
-            current = current?.Get(item);
+            if(!current.Exists(item))
+                return words;
+            
+            current = current.Get(item);
         }
-
-        ICollection<string> words = new Collection<string>();
-
+        
         AutoComplete(current, words, input);
 
         return words;
