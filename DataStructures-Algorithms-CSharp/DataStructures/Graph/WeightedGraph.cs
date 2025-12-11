@@ -130,7 +130,8 @@ public class WeightedGraph
         while (queue.Count > 0)
         {
             var popEdge = queue.Dequeue();
-
+            
+            graph.Add(popEdge.To.Label);
             graph.AddEdge(popEdge.From.Label, popEdge.To.Label, popEdge.Weight);
 
             visited.Add(popEdge.To);
