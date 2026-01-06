@@ -172,19 +172,12 @@ public class CustomTries
 
     public int CountWords() => CountWords(_root);
 
-    private int CountWords(Node? node)
+    private int CountWords(Node root)
     {
-        if (node is null)
-        {
-            return 0;
-        }
-
-        if (node.IsEndOfWord)
-        {
-            return 1;
-        }
-
         int result = 0;
+        if (root.IsEndOfWord)
+            result++;
+
         foreach (var child in node.GetChildren())
         {
             result += CountWords(child);
