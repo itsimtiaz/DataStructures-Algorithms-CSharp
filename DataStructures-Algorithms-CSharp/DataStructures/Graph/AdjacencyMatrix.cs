@@ -38,7 +38,7 @@ public class AdjacencyMatrix
         if (fromIndex < 0 || toIndex < 0)
             throw new InvalidOperationException();
 
-        _table[fromIndex, toIndex] = 1;
+        _table[fromIndex, toIndex] = 0;
     }
 
     public void Print()
