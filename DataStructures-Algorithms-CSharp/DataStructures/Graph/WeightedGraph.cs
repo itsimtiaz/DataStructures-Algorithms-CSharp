@@ -82,6 +82,7 @@ public class WeightedGraph
                 if (newDistance < nodeDistances[edge.To])
                 {
                     nodeDistances[edge.To] = newDistance;
+                    previousNodes[edge.To] = popItem;
                     queue.Enqueue(edge.To, newDistance);
                 }
             }
