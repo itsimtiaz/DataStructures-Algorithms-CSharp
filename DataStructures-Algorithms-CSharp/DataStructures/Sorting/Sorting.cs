@@ -1,6 +1,3 @@
-
-
-
 namespace DataStructures_Algorithms_CSharp.DataStructures.Sorting;
 
 public class Sorting
