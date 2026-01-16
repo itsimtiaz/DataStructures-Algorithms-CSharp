@@ -180,21 +180,23 @@ public class StringUtils
 
     public static bool AreAnagramsUsingHistogramming(string input1, string input2)
     {
+        if (input1.Length != input2.Length) return false;
+        
         int[] inputArray = new int[256];
 
-        for (int i = 0; i < input1.Length; i++)
+        foreach (var item in input1)
         {
-            inputArray[i]++;
+            inputArray[item]++;
         }
 
-        for (int i = 0; i < input2.Length; i++)
+        foreach (var item in input)
         {
-            if (inputArray[i] < 1)
+            if (inputArray[item] == 0)
                 return false;
 
-            inputArray[i]--;
+            inputArray[item]--;
         }
-
+        
         return true;
     }
 
